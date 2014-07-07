@@ -1,6 +1,6 @@
-/**
+/*!
  * @author Thomas <thansen@solire.fr>
- * @licence Solire <http://www.solire.fr>
+ * @licence CC BY-NC 4.0 http://creativecommons.org/licenses/by-nc/4.0/
  */
 (function($){
     $.fn.scrollto = function(givenParams){
@@ -8,23 +8,29 @@
                 speed   : function(dst){
                     return dst;
                 },
-//                speed   : 'slow',
                 indent  : 0,
                 after   : function(){}
             },
             isWebkit = /webkit/.test(navigator.userAgent.toLowerCase()),
-            container = isWebkit ? 'body' : 'html',
+            container,
             params = $.extend({}, defaultParams, givenParams),
             base = this,
-            where = $(base).offset().top + params.indent,
-            distance = Math.abs($(container).scrollTop() - where),
-            speed;
+//            where = $(base).offset().top + params.indent,
+            distance,
+            speed,
+            scrollTop;
 
-        function isFunc(func){
-            return $.isFunction(func);
-        };
+        if ('container' in params) {
+            container = params.container;
+            scrollTop = $(container).scrollTop() + $(base).position().top + params.indent;
+        } else {
+            container = isWebkit ? 'body' : 'html';
+            scrollTop = $(base).offset().top + params.indent;
+        }
 
-        if (isFunc(params.speed)) {
+        distance = Math.abs($(container).scrollTop() - scrollTop);
+
+        if ($.isFunction(params.speed)) {
             speed = params.speed.call(this, distance);
         } else {
             speed = params.speed;
@@ -32,7 +38,7 @@
 
         $(container).animate(
             {
-                scrollTop : $(base).offset().top + params.indent
+                scrollTop : scrollTop
             },
             speed,
             function(){
