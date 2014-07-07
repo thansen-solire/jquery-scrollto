@@ -1,6 +1,6 @@
 {
   "name": "jquery scrollto",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "jquery.scrollto.js",
   "author": "thansen",
   "dependencies": {
@@ -9,5 +9,15 @@
   "ignore": [
     "nbproject",
     ".gitignore"
-  ]
+  ],
+  "homepage": "https://github.com/thansen-solire/jquery.scrollto.js",
+  "authors": [
+    "thansen <thansen@solire.fr>"
+  ],
+  "description": "pluggin performing scroll to jquery element",
+  "keywords": [
+    "jquery",
+    "scroll"
+  ],
+  "license": "MIT"
 }
